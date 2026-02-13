@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convince | Master Leadership Decisions Under Pressure</title>
+  <meta name="description" content="Interactive leadership scenarios with expert feedback, time pressure, and peer comparison. Join the early access waitlist.">
+  <meta property="og:title" content="Convince | Master Leadership Decisions Under Pressure">
+  <meta property="og:description" content="Interactive leadership scenarios with expert feedback and peer comparison. Get early access.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convince | Master Leadership Decisions Under Pressure">
+  <meta name="twitter:description" content="Interactive leadership scenarios with expert feedback and peer comparison. Get early access.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #070B16;
+      --bg-primary: #0B1120;
+      --bg-card: #111827;
+      --bg-card-hover: #162033;
+      --accent-gold: #F5C518;
+      --accent-gold-hover: #FFD740;
+      --accent-gold-glow: rgba(245, 197, 24, 0.25);
+      --accent-blue: #3B82F6;
+      --accent-blue-dim: rgba(59, 130, 246, 0.15);
+      --text-white: #FFFFFF;
+      --text-grey: #94A3B8;
+      --text-muted: #64748B;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(245, 197, 24, 0.25);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(7, 11, 22, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.75rem clamp(1.5rem, 5vw, 4rem);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--accent-gold);
+    }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border-hover);
+      background: rgba(245, 197, 24, 0.06);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 7rem clamp(1.5rem, 5vw, 4rem) 4rem;
+    }
+
+    .hero-image {
+      position: absolute;
+      right: -2%;
+      bottom: 0;
+      height: 88%;
+      width: auto;
+      max-width: 55%;
+      object-fit: contain;
+      object-position: right bottom;
+      z-index: 0;
+      opacity: 0.8;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, var(--bg-deep) 40%, rgba(7, 11, 22, 0.6) 65%, rgba(7, 11, 22, 0.3) 100%),
+        linear-gradient(to top, var(--bg-deep) 0%, transparent 40%);
+      z-index: 1;
+    }
+
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      z-index: 0;
+      animation: float 25s ease-in-out infinite;
+    }
+
+    .hero-glow-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--accent-blue);
+      top: -150px;
+      left: -100px;
+    }
+
+    .hero-glow-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--accent-gold);
+      bottom: -100px;
+      right: 20%;
+      animation-delay: -12s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(25px, -25px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-hover));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      color: var(--text-grey);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 520px;
+    }
+
+    /* ---- FORMS ---- */
+    .form-wrapper {
+      position: relative;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 0.75rem;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .email-input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.9rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-white);
+      font-family: var(--font);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .email-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .email-input:focus {
+      border-color: var(--accent-gold);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-button {
+      padding: 0.9rem 1.75rem;
+      border-radius: 12px;
+      border: none;
+      background: var(--accent-gold);
+      color: #0B0F1A;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px var(--accent-gold-glow);
+    }
+
+    .cta-button:hover {
+      background: var(--accent-gold-hover);
+      box-shadow: 0 0 50px var(--accent-gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .cta-button:active {
+      transform: translateY(0);
+    }
+
+    .cta-button.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .form-trust {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .form-success.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .success-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .success-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .success-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .success-sub {
+      font-size: 0.85rem;
+      color: var(--text-grey);
+    }
+
+    .hidden { display: none; }
+
+    /* ---- PRESS BAR ---- */
+    .press {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+      text-align: center;
+    }
+
+    .press-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .press-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem 3rem;
+    }
+
+    .press-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: -0.01em;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .press-name:hover {
+      opacity: 0.8;
+    }
+
+    /* ---- SECTION SHARED ---- */
+    .section {
+      padding: 6rem clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.1rem;
+      color: var(--text-grey);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* ---- FEATURES ---- */
+    .features {
+      background: var(--bg-primary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-blue-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent-blue);
+    }
+
+    .feature-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--text-grey);
+      line-height: 1.65;
+    }
+
+    /* ---- PREVIEW BANNER ---- */
+    .preview {
+      position: relative;
+      padding: 8rem clamp(1.5rem, 5vw, 4rem);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .preview-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    .preview::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, var(--bg-deep) 0%, rgba(7, 11, 22, 0.4) 30%, rgba(7, 11, 22, 0.4) 70%, var(--bg-deep) 100%);
+      z-index: 1;
+    }
+
+    .preview-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .preview-content .section-label {
+      display: inline-block;
+    }
+
+    .preview-content .section-sub {
+      margin: 0 auto;
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .steps {
+      background: var(--bg-primary);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 1.75rem;
+      counter-increment: step;
+    }
+
+    .step::before {
+      content: '0' counter(step);
+      display: block;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      opacity: 0.15;
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--text-grey);
+      line-height: 1.6;
+    }
+
+    .step-connector {
+      display: none;
+    }
+
+    /* ---- FINAL CTA ---- */
+    .final-cta {
+      text-align: center;
+      padding: 7rem clamp(1.5rem, 5vw, 4rem);
+      position: relative;
+    }
+
+    .final-cta .section-title {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-cta .section-sub {
+      margin: 0 auto 2.5rem;
+    }
+
+    .final-cta .email-form {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .final-cta .form-trust {
+      text-align: center;
+    }
+
+    .final-cta .form-success {
+      justify-content: center;
+    }
+
+    .final-cta-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      filter: blur(200px);
+      opacity: 0.04;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    .final-cta > *:not(.final-cta-glow) {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-grey);
+    }
+
+    /* ---- ANIMATIONS ---- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+    .fade-up-delay-4 { transition-delay: 0.4s; }
+
+    /* ---- BACKGROUND DOTS ---- */
+    .dot-pattern {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-image {
+        opacity: 0.5;
+        max-width: 65%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: auto;
+        padding: 8rem clamp(1.25rem, 4vw, 2rem) 4rem;
+      }
+
+      .hero-image {
+        opacity: 0.25;
+        max-width: 90%;
+        right: -15%;
+      }
+
+      .hero::after {
+        background:
+          linear-gradient(105deg, var(--bg-deep) 20%, rgba(7, 11, 22, 0.85) 100%),
+          linear-gradient(to top, var(--bg-deep) 0%, transparent 50%);
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      .cta-button {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .step {
+        padding: 1.25rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .step:last-child {
+        border-bottom: none;
+      }
+
+      .step::before {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .press-logos {
+        gap: 1.25rem 2rem;
+      }
+
+      .press-name {
+        font-size: 0.95rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">Convince<span>App</span></a>
+    <div class="nav-badge">
+      <div class="nav-badge-dot"></div>
+      Launching March 2026
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <img
+      src="Convince App Black Hero Image (2).png"
+      alt="Convince App founders"
+      class="hero-image"
+      loading="eager"
+    >
+    <div class="hero-content">
+      <h1 class="fade-up">
+        Master Leadership Decisions
+        <span class="highlight">Before They Matter</span>
+      </h1>
+      <p class="hero-sub fade-up fade-up-delay-1">
+        Convince drops you into realistic leadership scenarios with expert feedback, time pressure, and peer comparison. Be first to experience it.
+      </p>
+      <div class="form-wrapper fade-up fade-up-delay-2">
+        <form class="email-form" action="https://formsubmit.co/adele@convincingcompany.com" method="POST">
+          <input type="hidden" name="_subject" value="New Convince Waitlist Signup">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <input type="email" name="email" class="email-input" placeholder="Enter your email" required aria-label="Email address">
+          <button type="submit" class="cta-button">Get Early Access</button>
+        </form>
+        <div class="form-success" role="status">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <div class="success-text">You're on the list</div>
+            <div class="success-sub">We'll let you know the moment Convince is live.</div>
+          </div>
+        </div>
+      </div>
+      <p class="form-trust fade-up fade-up-delay-3">Free to join. No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- PRESS BAR -->
+  <section class="press fade-up">
+    <div class="press-label">As featured in</div>
+    <div class="press-logos">
+      <!-- Replace these with actual media outlet names or logos -->
+      <span class="press-name">TechCrunch</span>
+      <span class="press-name">Forbes</span>
+      <span class="press-name">Business Insider</span>
+      <span class="press-name">Fast Company</span>
+      <span class="press-name">The Guardian</span>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section features dot-pattern">
+    <div class="container">
+      <div class="section-label fade-up">Why leaders choose Convince</div>
+      <h2 class="section-title fade-up fade-up-delay-1">Leadership training that feels like the real thing</h2>
+      <p class="section-sub fade-up fade-up-delay-2">
+        No lectures. No role-play. Just authentic scenarios that test how you think, decide, and lead when it counts.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card fade-up fade-up-delay-1">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+          <div class="feature-title">Interactive Scenarios</div>
+          <div class="feature-desc">Navigate authentic leadership challenges based on real business situations. No theory. No textbooks. Just decisions.</div>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-2">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="feature-title">Decisions Under Pressure</div>
+          <div class="feature-desc">Timed experiences that mirror the urgency of actual leadership moments. Because real decisions don't wait.</div>
+        </div>
+        <div class="feature-card fade-up fade-up-delay-3">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <div class="feature-title">Expert Feedback</div>
+          <div class="feature-desc">See how industry leaders approach the same challenge. Compare your instincts against the best.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW BANNER -->
+  <section class="preview">
+    <img
+      src="Decision Point.png"
+      alt="Convince scenario preview"
+      class="preview-bg"
+      loading="lazy"
+    >
+    <div class="preview-content">
+      <div class="section-label fade-up">Step inside the scenario</div>
+      <h2 class="section-title fade-up fade-up-delay-1">Real situations. Real stakes. Real growth.</h2>
+      <p class="section-sub fade-up fade-up-delay-2">
+        Each challenge immerses you in authentic situations with video, expert perspectives, and competing pressures. You make the call. Then you see how it compares.
+      </p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section steps">
+    <div class="container">
+      <div class="section-label fade-up">How it works</div>
+      <h2 class="section-title fade-up fade-up-delay-1">Four steps to sharper leadership</h2>
+      <div class="steps-grid">
+        <div class="step fade-up fade-up-delay-1">
+          <div class="step-title">Choose your scenario</div>
+          <div class="step-desc">Select from curated leadership challenges that match your development goals.</div>
+        </div>
+        <div class="step fade-up fade-up-delay-2">
+          <div class="step-title">Watch it unfold</div>
+          <div class="step-desc">Immerse yourself in video-driven situations that feel like a real day at work.</div>
+        </div>
+        <div class="step fade-up fade-up-delay-3">
+          <div class="step-title">Consult the experts</div>
+          <div class="step-desc">Review perspectives from industry leaders before you commit to a direction.</div>
+        </div>
+        <div class="step fade-up fade-up-delay-4">
+          <div class="step-title">Make your call</div>
+          <div class="step-desc">Decide under pressure and see how your approach stacks up against the best.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-glow"></div>
+    <div class="section-label fade-up">Early access</div>
+    <h2 class="section-title fade-up fade-up-delay-1">The waitlist is open</h2>
+    <p class="section-sub fade-up fade-up-delay-2">Join leaders who want first access to Convince when it launches.</p>
+    <div class="form-wrapper fade-up fade-up-delay-3">
+      <form class="email-form" action="https://formsubmit.co/adele@convincingcompany.com" method="POST">
+        <input type="hidden" name="_subject" value="New Convince Waitlist Signup">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+        <input type="email" name="email" class="email-input" placeholder="Enter your email" required aria-label="Email address">
+        <button type="submit" class="cta-button">Reserve My Spot</button>
+      </form>
+      <div class="form-success" role="status">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="success-text">You're on the list</div>
+          <div class="success-sub">We'll let you know the moment Convince is live.</div>
+        </div>
+      </div>
+    </div>
+    <p class="form-trust fade-up fade-up-delay-4">Free to join. No spam. Unsubscribe anytime.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">&copy; 2026 Convince. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="mailto:support@convinceapp.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav background on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Scroll-triggered fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Form submission with success state via Formsubmit.co
+    document.querySelectorAll('.email-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.cta-button');
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.classList.add('loading');
+
+        try {
+          const email = form.querySelector('input[name="email"]').value;
+          const res = await fetch('https://formsubmit.co/ajax/adele@convincingcompany.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              email: email,
+              _subject: 'New Convince Waitlist Signup',
+              _template: 'table'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success === 'true' || data.success === true || res.ok) {
+            form.style.opacity = '0';
+            form.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+              form.style.display = 'none';
+              const success = form.closest('.form-wrapper').querySelector('.form-success');
+              success.style.display = 'flex';
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  success.classList.add('show');
+                });
+              });
+            }, 300);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (err) {
+          btn.textContent = originalText;
+          btn.classList.remove('loading');
+          // Fallback: submit the form normally (redirects to Formsubmit)
+          form.submit();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
